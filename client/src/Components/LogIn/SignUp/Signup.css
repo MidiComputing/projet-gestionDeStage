@@ -1,0 +1,28 @@
+.signup-form {
+    background: #f8f9fa;
+    padding: 30px;
+    border-radius: 10px;
+  }
+  
+  .signup-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .signup-form form {
+    margin-top: 20px;
+  }
+  
+  .signup-form .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .signup-form .btn-block {
+    width: 100%;
+  }
+  
+  @media (min-width: 576px) {
+    .signup-form {
+      margin-top: 50px;
+    }
+  }
