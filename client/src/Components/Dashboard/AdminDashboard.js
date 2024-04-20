@@ -1,21 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Nav } from "react-bootstrap";
-import { logout } from "../../JS/actions/useraction";
+import { getUser, logout } from "../../JS/actions/useraction";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import DemandeStageAdmin from "../Admin/DemandeStageAdmin";
+import { getallApplications } from "../../JS/actions/companyactions";
 
 const AdminDashboard = () => {
-  const dispatch=useDispatch()
+  useEffect(() => {
+    dispatch(getallApplications());
+  }, []);
+
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("tab1");
 
   const handleTabSelect = (eventKey) => {
     setActiveTab(eventKey);
   };
-  const handleLogout = ()=>{
-    dispatch(logout())
-    navigate("/login")
-  }
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/login");
+  };
   return (
     <Container fluid>
       <Row>
@@ -48,7 +54,9 @@ const AdminDashboard = () => {
                 <Nav.Link eventKey="tab6">Réglages</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey="tab7" onClick={handleLogout}>Log out</Nav.Link>
+                <Nav.Link eventKey="tab7" onClick={handleLogout}>
+                  Log out
+                </Nav.Link>
               </Nav.Item>
               {/* Add more tabs as needed */}
             </Nav>
@@ -59,8 +67,7 @@ const AdminDashboard = () => {
           <div className="p-4">
             {activeTab === "tab1" && (
               <div>
-                <h4>Main Content for Tab 1</h4>
-                <p>This is the main content for Tab 1.</p>
+                <DemandeStageAdmin />
               </div>
             )}
             {activeTab === "tab2" && (

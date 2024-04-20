@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Login.css";
-import Signup from "./SignUp/Signup";
+
 import SignIn from "./SignIn/SignIn";
+import Signup from "./SignUp/Signup";
 
 const Login = () => {
   const [showLogin, setShowLogin] = useState(true);

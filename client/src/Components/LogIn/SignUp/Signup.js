@@ -1,25 +1,30 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
-import { addUser } from "../../../JS/actions/useraction"; 
 import { useDispatch } from "react-redux";
+import { addUser } from "../../../JS/actions/useraction";
+import { useNavigate } from "react-router-dom";
+import { BsEye, BsEyeSlash } from "react-icons/bs";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Signup.css";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
-    username: "",
+    first_name: "",
+    last_name: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
-  const dispatch=useDispatch()
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [validated, setValidated] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [passwordsMatch, setPasswordsMatch] = useState(true);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value,role:"admin" });
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = (e) => {
@@ -27,11 +32,22 @@ const Signup = () => {
     const form = e.currentTarget;
     if (form.checkValidity() === false) {
       e.stopPropagation();
+    } else if (formData.password !== formData.confirmPassword) {
+      setPasswordsMatch(false);
+      e.stopPropagation();
     } else {
-      // Submit form data
       dispatch(addUser(formData, navigate));
+      setValidated(true);
     }
     setValidated(true);
+  };
+
+  const togglePasswordVisibility = (field) => {
+    if (field === "password") {
+      setShowPassword(!showPassword);
+    } else if (field === "confirmPassword") {
+      setShowConfirmPassword(!showConfirmPassword);
+    }
   };
 
   return (
@@ -41,18 +57,33 @@ const Signup = () => {
           <div className="signup-form">
             <h2 className="text-center mb-4">Sign Up</h2>
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
-              <Form.Group controlId="username">
-                <Form.Label>Username</Form.Label>
+              <Form.Group controlId="first_name">
+                <Form.Label>First Name</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="Enter username"
-                  name="username"
-                  value={formData.username}
+                  placeholder="Enter first name"
+                  name="first_name"
+                  value={formData.first_name}
                   onChange={handleChange}
                   required
                 />
                 <Form.Control.Feedback type="invalid">
-                  Please enter a username.
+                  Please enter your first name.
+                </Form.Control.Feedback>
+              </Form.Group>
+
+              <Form.Group controlId="last_name">
+                <Form.Label>Last Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter last name"
+                  name="last_name"
+                  value={formData.last_name}
+                  onChange={handleChange}
+                  required
+                />
+                <Form.Control.Feedback type="invalid">
+                  Please enter your last name.
                 </Form.Control.Feedback>
               </Form.Group>
 
@@ -73,14 +104,23 @@ const Signup = () => {
 
               <Form.Group controlId="password">
                 <Form.Label>Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="Password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  required
-                />
+                <div style={{ display: "flex", gap: "10px" }} className="password-input">
+                  <Form.Control
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    required
+                  />
+                  <Button
+                    variant="light"
+                    className="password-toggle"
+                    onClick={() => togglePasswordVisibility("password")}
+                  >
+                    {showPassword ? <BsEyeSlash /> : <BsEye />}
+                  </Button>
+                </div>
                 <Form.Control.Feedback type="invalid">
                   Please enter a password.
                 </Form.Control.Feedback>
@@ -88,16 +128,25 @@ const Signup = () => {
 
               <Form.Group controlId="confirmPassword">
                 <Form.Label>Confirm Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="Confirm Password"
-                  name="confirmPassword"
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                  required
-                />
+                <div style={{ display: "flex", gap: "10px" }} className="password-input">
+                  <Form.Control
+                    type={showConfirmPassword ? "text" : "password"}
+                    placeholder="Confirm Password"
+                    name="confirmPassword"
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
+                    required
+                  />
+                  <Button
+                    variant="light"
+                    className="password-toggle"
+                    onClick={() => togglePasswordVisibility("confirmPassword")}
+                  >
+                    {showConfirmPassword ? <BsEyeSlash /> : <BsEye />}
+                  </Button>
+                </div>
                 <Form.Control.Feedback type="invalid">
-                  Passwords do not match.
+                  {passwordsMatch ? "Passwords do not match." : "Please confirm your password."}
                 </Form.Control.Feedback>
               </Form.Group>
 

@@ -4,13 +4,14 @@ import {
   LOGOUT,
   SIGNINSUCCESS,
   SIGNUPSUCCESS,
+  CURRENTUSERAUTH,
 } from "../actiontypes/usertypes";
 
 const initialState = {
   authloading: true,
   error: null,
   Alert: "",
-  currentUser: {},
+  currentUser: {}, // Initialize currentUser as an empty object
   isAuth: false,
   currentUserR: {},
 };
@@ -28,7 +29,7 @@ export const userReducers = (state = initialState, { type, payload }) => {
       return {
         ...state,
         Alert: payload.msg,
-        currentUser: payload.user,
+        currentUser: payload.user, // Update currentUser with the authenticated user data
         authloading: false,
         isAuth: true,
       };
@@ -43,8 +44,17 @@ export const userReducers = (state = initialState, { type, payload }) => {
         currentUser: {},
         isAuth: false,
       };
+
     case AUTHFAILED:
       return { ...state, error: payload, authloading: false };
+
+    case CURRENTUSERAUTH:
+      return {
+        ...state,
+        authloading: false,
+        currentUser: payload,
+        isAuth: true,
+      };
 
     default:
       return state;

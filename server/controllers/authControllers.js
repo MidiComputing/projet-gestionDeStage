@@ -3,7 +3,7 @@ const { hashPwd, comparePwd } = require("../tools/PasswordHandler");
 const createtoken = require("../tools/Token");
 
 module.exports.Signup = async (req, res) => {
-  const { email, password, first_name, code } = req.body;
+  const { email, password } = req.body;
   try {
     const existingUser = await userModel.findOne({ email });
     if (existingUser) {
