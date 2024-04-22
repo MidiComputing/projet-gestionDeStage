@@ -3,19 +3,20 @@ import { Container, Row, Col, Nav } from "react-bootstrap";
 import { logout } from "../../JS/actions/useraction";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import StagesActifsTeacher from "../Teacher/StagesActifsTeacher";
 
 const TeacherDashboard = () => {
-  const dispatch=useDispatch()
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-    const [activeTab, setActiveTab] = useState("tab1");
+  const [activeTab, setActiveTab] = useState("tab1");
 
-    const handleTabSelect = (eventKey) => {
-      setActiveTab(eventKey);
-    };
-    const handleLogout = ()=>{
-      dispatch(logout())
-      navigate("/login")
-    }
+  const handleTabSelect = (eventKey) => {
+    setActiveTab(eventKey);
+  };
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/login");
+  };
   return (
     <Container fluid>
       <Row>
@@ -30,25 +31,19 @@ const TeacherDashboard = () => {
               onSelect={handleTabSelect}
             >
               <Nav.Item>
-                <Nav.Link eventKey="tab1">Demandes de Stages</Nav.Link>
+                <Nav.Link eventKey="tab1">Stages Actifs</Nav.Link>
               </Nav.Item>
-              <Nav.Item>
-                <Nav.Link eventKey="tab2">Stages Actifs</Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link eventKey="tab3">Ajouter une entreprise</Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link eventKey="tab4">Ajouter un professionnel</Nav.Link>
-              </Nav.Item>
+
               <Nav.Item>
                 <Nav.Link eventKey="tab5">Rapports</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey="tab6">Réglages</Nav.Link>
+                <Nav.Link eventKey="tab6">Soutenances</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey="tab7" onClick={handleLogout}>Log out</Nav.Link>
+                <Nav.Link eventKey="tab7" onClick={handleLogout}>
+                  Log out
+                </Nav.Link>
               </Nav.Item>
               {/* Add more tabs as needed */}
             </Nav>
@@ -59,28 +54,10 @@ const TeacherDashboard = () => {
           <div className="p-4">
             {activeTab === "tab1" && (
               <div>
-                <h4>Main Content for Tab 1</h4>
-                <p>This is the main content for Tab 1.</p>
+                <StagesActifsTeacher />
               </div>
             )}
-            {activeTab === "tab2" && (
-              <div>
-                <h4>Main Content for Tab 2</h4>
-                <p>This is the main content for Tab 2.</p>
-              </div>
-            )}
-            {activeTab === "tab3" && (
-              <div>
-                <h4>Main Content for Tab 3</h4>
-                <p>This is the main content for Tab 3.</p>
-              </div>
-            )}
-            {activeTab === "tab4" && (
-              <div>
-                <h4>Main Content for Tab 4</h4>
-                <p>This is the main content for Tab 4.</p>
-              </div>
-            )}
+
             {activeTab === "tab5" && (
               <div>
                 <h4>Main Content for Tab 5</h4>
@@ -98,7 +75,7 @@ const TeacherDashboard = () => {
         </Col>
       </Row>
     </Container>
-  )
-}
+  );
+};
 
-export default TeacherDashboard
+export default TeacherDashboard;

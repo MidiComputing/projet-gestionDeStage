@@ -4,13 +4,19 @@ import { logout } from "../../JS/actions/useraction";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import DemandeStage from "../Student/DemandeStage";
-import { getallApplications, getallCompanies } from "../../JS/actions/companyactions";
+import {
+  getallApplications,
+  getallCompanies,
+} from "../../JS/actions/companyactions";
 import AjouterEntreprise from "../Student/AjouterEntreprise";
+import { getAllAccounts } from "../../JS/actions/accountactions";
+import StagesActifs from "../Student/StagesActifs";
 
 const StudentDashboard = () => {
   useEffect(() => {
     dispatch(getallCompanies());
     dispatch(getallApplications());
+    dispatch(getAllAccounts());
   }, []);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -45,14 +51,12 @@ const StudentDashboard = () => {
               <Nav.Item>
                 <Nav.Link eventKey="tab3">Ajouter une entreprise</Nav.Link>
               </Nav.Item>
-              <Nav.Item>
-                <Nav.Link eventKey="tab4">Ajouter un professionnel</Nav.Link>
-              </Nav.Item>
+              
               <Nav.Item>
                 <Nav.Link eventKey="tab5">Rapports</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey="tab6">Réglages</Nav.Link>
+                <Nav.Link eventKey="tab6">Soutenances</Nav.Link>
               </Nav.Item>
               <Nav.Item>
                 <Nav.Link eventKey="tab7" onClick={handleLogout}>
@@ -73,8 +77,7 @@ const StudentDashboard = () => {
             )}
             {activeTab === "tab2" && (
               <div>
-                <h4>Main Content for Tab 2</h4>
-                <p>This is the main content for Tab 2.</p>
+                <StagesActifs />
               </div>
             )}
             {activeTab === "tab3" && (
@@ -82,12 +85,7 @@ const StudentDashboard = () => {
                 <AjouterEntreprise />
               </div>
             )}
-            {activeTab === "tab4" && (
-              <div>
-                <h4>Main Content for Tab 4</h4>
-                <p>This is the main content for Tab 4.</p>
-              </div>
-            )}
+            
             {activeTab === "tab5" && (
               <div>
                 <h4>Main Content for Tab 5</h4>

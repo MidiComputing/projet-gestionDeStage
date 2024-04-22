@@ -5,10 +5,14 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import DemandeStageAdmin from "../Admin/DemandeStageAdmin";
 import { getallApplications } from "../../JS/actions/companyactions";
+import AccountManagement from "../Admin/AccountManagment";
+import { getAllAccounts } from "../../JS/actions/accountactions";
+import StagesActifsAdmin from "../Admin/StageActifsAdmin";
 
 const AdminDashboard = () => {
   useEffect(() => {
     dispatch(getallApplications());
+    dispatch(getAllAccounts());
   }, []);
 
   const dispatch = useDispatch();
@@ -41,9 +45,7 @@ const AdminDashboard = () => {
               <Nav.Item>
                 <Nav.Link eventKey="tab2">Stages Actifs</Nav.Link>
               </Nav.Item>
-              <Nav.Item>
-                <Nav.Link eventKey="tab3">Ajouter une entreprise</Nav.Link>
-              </Nav.Item>
+
               <Nav.Item>
                 <Nav.Link eventKey="tab4">Ajouter un professionnel</Nav.Link>
               </Nav.Item>
@@ -51,7 +53,7 @@ const AdminDashboard = () => {
                 <Nav.Link eventKey="tab5">Rapports</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey="tab6">Réglages</Nav.Link>
+                <Nav.Link eventKey="tab6">Soutenances</Nav.Link>
               </Nav.Item>
               <Nav.Item>
                 <Nav.Link eventKey="tab7" onClick={handleLogout}>
@@ -72,20 +74,13 @@ const AdminDashboard = () => {
             )}
             {activeTab === "tab2" && (
               <div>
-                <h4>Main Content for Tab 2</h4>
-                <p>This is the main content for Tab 2.</p>
+                <StagesActifsAdmin />
               </div>
             )}
-            {activeTab === "tab3" && (
-              <div>
-                <h4>Main Content for Tab 3</h4>
-                <p>This is the main content for Tab 3.</p>
-              </div>
-            )}
+
             {activeTab === "tab4" && (
               <div>
-                <h4>Main Content for Tab 4</h4>
-                <p>This is the main content for Tab 4.</p>
+                <AccountManagement />
               </div>
             )}
             {activeTab === "tab5" && (

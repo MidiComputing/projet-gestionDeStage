@@ -11,7 +11,7 @@ const initialState = {
   authloading: true,
   error: null,
   Alert: "",
-  currentUser: {}, // Initialize currentUser as an empty object
+  currentUser: {}, 
   isAuth: false,
   currentUserR: {},
 };
@@ -55,6 +55,7 @@ export const userReducers = (state = initialState, { type, payload }) => {
         currentUser: payload,
         isAuth: true,
       };
+      
 
     default:
       return state;

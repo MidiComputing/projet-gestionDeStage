@@ -9,6 +9,7 @@ const DemandeStage = () => {
   const allCompanies = useSelector((state) => state.companyR.companies);
   const currentUser = useSelector((state) => state.userR.currentUser);
   const allApplications = useSelector((state) => state.companyR.applications);
+  const allAccounts = useSelector((state) => state.accountR.accounts);
 
   const [formData, setFormData] = useState({
     first_name: currentUser.first_name || "",
@@ -17,7 +18,11 @@ const DemandeStage = () => {
     startDate: "",
     endDate: "",
     student: currentUser._id || "",
+    teacher_first_name: "",
+    teacher_last_name: "",
+    teacher_address: "",
     status: "pending",
+    teacher_id: "",
   });
 
   const handleApplicationSubmit = (e) => {
@@ -35,10 +40,22 @@ const DemandeStage = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    if (name === "teacher_first_name") {
+      const selectedTeacher = allAccounts.find(
+        (teacher) => `${teacher.first_name} ${teacher.last_name}` === value
+      );
+      setFormData({
+        ...formData,
+        teacher_first_name: selectedTeacher?.first_name || "",
+        teacher_last_name: selectedTeacher?.last_name || "",
+        teacher_id: selectedTeacher?._id || "",
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
   };
 
   return (
@@ -63,6 +80,36 @@ const DemandeStage = () => {
               ))}
           </Form.Control>
         </Form.Group>
+        <Form.Group controlId="teacherSelect">
+          <Form.Label>Select Teacher</Form.Label>
+          <Form.Control
+            as="select"
+            name="teacher_first_name"
+            value={formData.teacher_first_name}
+            onChange={handleChange}
+          >
+            {formData.teacher_first_name ? (
+              <option
+                value={`${formData.teacher_first_name} ${formData.teacher_last_name}`}
+              >
+                {formData.teacher_first_name} {formData.teacher_last_name}
+              </option>
+            ) : (
+              <option value="">Select a teacher</option>
+            )}
+            {allAccounts
+              .filter((account) => account.role === "teacher")
+              .map((teacher) => (
+                <option
+                  key={teacher._id}
+                  value={`${teacher.first_name} ${teacher.last_name}`}
+                >
+                  {teacher.first_name} {teacher.last_name}
+                </option>
+              ))}
+          </Form.Control>
+        </Form.Group>
+
         <Form.Group controlId="startDate">
           <Form.Label>Start Date</Form.Label>
           <Form.Control
@@ -93,6 +140,7 @@ const DemandeStage = () => {
             <th>First Name</th>
             <th>Last Name</th>
             <th>Company Name</th>
+            <th>Teacher</th>
             <th>Start Date</th>
             <th>End Date</th>
             <th>Status</th>
@@ -107,6 +155,10 @@ const DemandeStage = () => {
                   <td>{application.first_name}</td>
                   <td>{application.last_name}</td>
                   <td>{application.companyName}</td>
+                  <td>
+                    {application.teacher_first_name}{" "}
+                    {application.teacher_last_name}
+                  </td>
                   <td>
                     {moment(application.startDate).format("MMMM Do YYYY")}
                   </td>
@@ -133,7 +185,7 @@ const DemandeStage = () => {
             (application) => application.student !== currentUser._id
           ) && (
             <tr>
-              <td colSpan="6">You have not submitted any applications yet.</td>
+              <td colSpan="7">You have not submitted any applications yet.</td>
             </tr>
           )}
         </tbody>

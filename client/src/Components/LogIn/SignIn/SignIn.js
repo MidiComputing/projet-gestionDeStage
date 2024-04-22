@@ -37,7 +37,7 @@ const SignIn = () => {
       <Row className="justify-content-center mt-5">
         <Col md={6}>
           <div className="login-form">
-            <h2 className="text-center mb-4">Log In</h2>
+            
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
               <Form.Group controlId="email">
                 <Form.Label>Email</Form.Label>

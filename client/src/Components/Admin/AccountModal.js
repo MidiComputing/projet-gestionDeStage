@@ -1,19 +1,21 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { addUser } from "../../../JS/actions/useraction";
+
 import { useNavigate } from "react-router-dom";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./Signup.css";
 
-const Signup = () => {
+import { addUser } from "../../JS/actions/useraction";
+
+const AccountModal = () => {
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
     email: "",
     password: "",
     confirmPassword: "",
+    role: "teacher",
   });
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -55,7 +57,6 @@ const Signup = () => {
       <Row className="justify-content-center mt-5">
         <Col md={6}>
           <div className="signup-form">
-         
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
               <Form.Group controlId="first_name">
                 <Form.Label>First Name</Form.Label>
@@ -104,7 +105,10 @@ const Signup = () => {
 
               <Form.Group controlId="password">
                 <Form.Label>Password</Form.Label>
-                <div style={{ display: "flex", gap: "10px" }} className="password-input">
+                <div
+                  style={{ display: "flex", gap: "10px" }}
+                  className="password-input"
+                >
                   <Form.Control
                     type={showPassword ? "text" : "password"}
                     placeholder="Password"
@@ -128,7 +132,10 @@ const Signup = () => {
 
               <Form.Group controlId="confirmPassword">
                 <Form.Label>Confirm Password</Form.Label>
-                <div style={{ display: "flex", gap: "10px" }} className="password-input">
+                <div
+                  style={{ display: "flex", gap: "10px" }}
+                  className="password-input"
+                >
                   <Form.Control
                     type={showConfirmPassword ? "text" : "password"}
                     placeholder="Confirm Password"
@@ -146,7 +153,9 @@ const Signup = () => {
                   </Button>
                 </div>
                 <Form.Control.Feedback type="invalid">
-                  {passwordsMatch ? "Passwords do not match." : "Please confirm your password."}
+                  {passwordsMatch
+                    ? "Passwords do not match."
+                    : "Please confirm your password."}
                 </Form.Control.Feedback>
               </Form.Group>
 
@@ -161,4 +170,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default AccountModal;

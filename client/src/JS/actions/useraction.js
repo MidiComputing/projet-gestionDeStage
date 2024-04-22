@@ -6,7 +6,9 @@ import {
   SIGNUPSUCCESS,
   LOGOUT,
   CURRENTUSERAUTH,
+  GETALLUSERSUCCESS,
 } from "../actiontypes/usertypes";
+import { getAllAccounts } from "./accountactions";
 
 const baseURL = "http://localhost:4500/auth/";
 /**
@@ -16,14 +18,14 @@ const baseURL = "http://localhost:4500/auth/";
  */
 export const addUser = (newUserData) => async (dispatch) => {
   dispatch({
-    type: LOADING,
+    type: LOADING, 
   });
 
   try {
     const { data } = await axios.post(baseURL + "signup", { ...newUserData });
 
     dispatch({ type: SIGNUPSUCCESS, payload: data.msg });
-
+    dispatch(getAllAccounts())
     if (data.msg) {
       alert(data.msg);
     }
@@ -99,6 +101,7 @@ export const getUser = () => async (dispatch) => {
     console.log(error);
   }
 };
+
 
 //logout
 export const logout = () => ({

@@ -72,46 +72,50 @@ const DemandeStageAdmin = () => {
                       )}
                     </Accordion.Header>
                     <Accordion.Body>
-                      <Table variant="dark" bordered striped responsive>
-                        <tbody>
-                          <tr>
-                            <td>Company Name:</td>
-                            <td>{application.companyName}</td>
-                          </tr>
-                          <tr>
-                            <td>Start Date:</td>
-                            <td>{moment(application.startDate).format("MMMM Do YYYY")}</td>
-                          </tr>
-                          <tr>
-                            <td>End Date:</td>
-                            <td>{moment(application.endDate).format("MMMM Do YYYY")}</td>
-                          </tr>
-                          <tr>
-                            <td>Status:</td>
-                            <td style={{ color: getStatusColor(application.status) }}>
-                              {application.status}
-                            </td>
-                          </tr>
-                          {application.status === "pending" && (
-                            <tr>
-                              <td colSpan="2">
-                                <Button
-                                  variant="success"
-                                  onClick={() => handleAction(application._id, "approve")}
-                                >
-                                  Approve
-                                </Button>{" "}
-                                <Button
-                                  variant="danger"
-                                  onClick={() => handleAction(application._id, "reject")}
-                                >
-                                  Decline
-                                </Button>
-                              </td>
-                            </tr>
-                          )}
-                        </tbody>
-                      </Table>
+                    <Table variant="dark" bordered striped responsive>
+  <tbody>
+    <tr>
+      <td>Company Name:</td>
+      <td>{application.companyName}</td>
+    </tr>
+    <tr>
+      <td>Teacher:</td>
+      <td>{application.teacher_first_name} {application.teacher_last_name}</td>
+    </tr>
+    <tr>
+      <td>Start Date:</td>
+      <td>{moment(application.startDate).format("MMMM Do YYYY")}</td>
+    </tr>
+    <tr>
+      <td>End Date:</td>
+      <td>{moment(application.endDate).format("MMMM Do YYYY")}</td>
+    </tr>
+    <tr>
+      <td>Status:</td>
+      <td style={{ color: getStatusColor(application.status) }}>
+        {application.status}
+      </td>
+    </tr>
+    <tr>
+      <td colSpan="2">
+        <Button
+          variant="success"
+          onClick={() => handleAction(application._id, "approve")}
+          disabled={application.status === "approved"}
+        >
+          {application.status === "approved" ? "Approved" : "Approve"}
+        </Button>{" "}
+        <Button
+          variant="danger"
+          onClick={() => handleAction(application._id, "reject")}
+          disabled={application.status === "declined"}
+        >
+          {application.status === "declined" ? "Declined" : "Decline"}
+        </Button>
+      </td>
+    </tr>
+  </tbody>
+</Table>
                     </Accordion.Body>
                   </Accordion.Item>
                 </Accordion>
