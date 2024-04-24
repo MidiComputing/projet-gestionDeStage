@@ -8,11 +8,15 @@ import { getallApplications } from "../../JS/actions/companyactions";
 import AccountManagement from "../Admin/AccountManagment";
 import { getAllAccounts } from "../../JS/actions/accountactions";
 import StagesActifsAdmin from "../Admin/StageActifsAdmin";
+import { getAllReports } from "../../JS/actions/rapportactions";
+import RapportsAdmin from "../Admin/RapportsAdmin";
+import SoutenanceAdmin from "../Admin/SoutenanceAdmin";
 
 const AdminDashboard = () => {
   useEffect(() => {
     dispatch(getallApplications());
     dispatch(getAllAccounts());
+    dispatch(getAllReports());
   }, []);
 
   const dispatch = useDispatch();
@@ -85,14 +89,12 @@ const AdminDashboard = () => {
             )}
             {activeTab === "tab5" && (
               <div>
-                <h4>Main Content for Tab 5</h4>
-                <p>This is the main content for Tab 5.</p>
+                <RapportsAdmin/>
               </div>
             )}
             {activeTab === "tab6" && (
               <div>
-                <h4>Main Content for Tab 6</h4>
-                <p>This is the main content for Tab 6.</p>
+                <SoutenanceAdmin/>
               </div>
             )}
             {/* Add more content for other tabs */}

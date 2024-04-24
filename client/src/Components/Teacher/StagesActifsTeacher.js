@@ -6,7 +6,7 @@ import moment from "moment";
 const StagesActifsTeacher = () => {
   const currentUser = useSelector((state) => state.userR.currentUser);
   const allApplications = useSelector((state) => state.companyR.applications);
-
+console.log(allApplications)
   const approvedApplications = allApplications.filter((application) => {
     return (
       application.status === "approved" &&

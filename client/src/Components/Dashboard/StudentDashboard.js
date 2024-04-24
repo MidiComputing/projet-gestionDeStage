@@ -11,12 +11,16 @@ import {
 import AjouterEntreprise from "../Student/AjouterEntreprise";
 import { getAllAccounts } from "../../JS/actions/accountactions";
 import StagesActifs from "../Student/StagesActifs";
+import Rapports from "../Student/Rapports";
+import { getAllReports } from "../../JS/actions/rapportactions";
+import SoutenanceStudent from "../Student/SoutenanceStudent";
 
 const StudentDashboard = () => {
   useEffect(() => {
     dispatch(getallCompanies());
     dispatch(getallApplications());
     dispatch(getAllAccounts());
+    dispatch(getAllReports());
   }, []);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -51,7 +55,7 @@ const StudentDashboard = () => {
               <Nav.Item>
                 <Nav.Link eventKey="tab3">Ajouter une entreprise</Nav.Link>
               </Nav.Item>
-              
+
               <Nav.Item>
                 <Nav.Link eventKey="tab5">Rapports</Nav.Link>
               </Nav.Item>
@@ -85,17 +89,15 @@ const StudentDashboard = () => {
                 <AjouterEntreprise />
               </div>
             )}
-            
+
             {activeTab === "tab5" && (
               <div>
-                <h4>Main Content for Tab 5</h4>
-                <p>This is the main content for Tab 5.</p>
+                <Rapports />
               </div>
             )}
             {activeTab === "tab6" && (
               <div>
-                <h4>Main Content for Tab 6</h4>
-                <p>This is the main content for Tab 6.</p>
+                <SoutenanceStudent />
               </div>
             )}
             {/* Add more content for other tabs */}

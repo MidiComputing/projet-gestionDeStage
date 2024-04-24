@@ -1,11 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Nav } from "react-bootstrap";
 import { logout } from "../../JS/actions/useraction";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import StagesActifsTeacher from "../Teacher/StagesActifsTeacher";
+import { getAllReports } from "../../JS/actions/rapportactions";
+import { getallApplications } from "../../JS/actions/companyactions";
+import RapportsTeacher from "../Teacher/RapportsTeacher";
+import SoutenanceTeacher from "../Teacher/SoutenanceTeacher";
 
 const TeacherDashboard = () => {
+  useEffect(() => {
+    dispatch(getAllReports());
+    dispatch(getallApplications());
+  }, []);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("tab1");
@@ -60,14 +68,12 @@ const TeacherDashboard = () => {
 
             {activeTab === "tab5" && (
               <div>
-                <h4>Main Content for Tab 5</h4>
-                <p>This is the main content for Tab 5.</p>
+                <RapportsTeacher/>
               </div>
             )}
             {activeTab === "tab6" && (
               <div>
-                <h4>Main Content for Tab 6</h4>
-                <p>This is the main content for Tab 6.</p>
+                <SoutenanceTeacher/>
               </div>
             )}
             {/* Add more content for other tabs */}
