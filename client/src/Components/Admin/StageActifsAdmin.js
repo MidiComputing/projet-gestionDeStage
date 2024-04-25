@@ -1,17 +1,24 @@
 import React from "react";
-import { Table } from "react-bootstrap";
+import { Table, Card } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import moment from "moment";
 
 const StagesActifsAdmin = () => {
-  const currentUser = useSelector((state) => state.userR.currentUser);
   const allApplications = useSelector((state) => state.companyR.applications);
 
   const approvedApplications = allApplications.filter((application) => {
-    return (
-      application.status === "approved" 
-    );
+    return application.status === "approved";
   });
+
+  if (approvedApplications.length === 0) {
+    return (
+      <Card>
+        <Card.Body>
+          <Card.Text>There are no active stages.</Card.Text>
+        </Card.Body>
+      </Card>
+    );
+  }
 
   return (
     <div>

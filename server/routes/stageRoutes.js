@@ -2,9 +2,8 @@ const express = require("express");
 
 const {
   validator,
-  registerRules,
-  loginRules,
-  editUserRules,
+  createCompany,
+  createApplication,
 } = require("../middlewares/validators/bodyValidators");
 const {
   addCompany,
@@ -22,7 +21,7 @@ const router = express.Router();
  *@access protected(authentifié+role:student)
  */
 
-router.post("/company/add", addCompany);
+router.post("/company/add", createCompany, validator, addCompany);
 
 /**
  * @route get /company/
@@ -45,7 +44,7 @@ router.delete("/company/delete/:companyID", deleteCompany);
  *@access protected(authentifié+role:student)
  */
 
-router.post("/application/add", addApplication);
+router.post("/application/add",createApplication,validator, addApplication);
 
 /**
  * @route get /application/

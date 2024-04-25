@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Card,
   ListGroup,
@@ -36,87 +36,94 @@ const RapportsTeacher = () => {
     dispatch(updateReport(reportId, { rapport_status: "revision" }));
   };
 
+  const filteredRapports = allRapports.filter(
+    (report) => report.application.teacher_id === currentUser._id
+  );
+
+  if (filteredRapports.length === 0) {
+    return (
+      <Card>
+        <Card.Body>
+          <Card.Text>There are no rapports yet.</Card.Text>
+        </Card.Body>
+      </Card>
+    );
+  }
+
   return (
     <div>
-      {allRapports.map(
-        (report) =>
-          report.application.teacher_id === currentUser._id && (
-            <Card key={report._id} style={{ width: "100%" }}>
-              <Card.Body>
-                <Card.Title>
-                  Company Name {report.application?.companyName}
-                </Card.Title>
-                <Card.Text>
-                  Student Name: {report.application?.first_name}{" "}
-                  {report.application?.last_name}
-                  <br />
-                  Start Date:{" "}
-                  {moment(report.application?.startDate).format("YYYY-MM-DD")}
-                  <br />
-                  End Date:{" "}
-                  {moment(report.application?.endDate).format("YYYY-MM-DD")}
-                </Card.Text>
-              </Card.Body>
-              <ListGroup className="list-group-flush">
-                <ListGroup.Item>Status: {report.rapport_status}</ListGroup.Item>
-                <ListGroup.Item>
-                  Teacher: {report.application?.teacher_first_name}{" "}
-                  {report.application?.teacher_last_name}
-                </ListGroup.Item>
-              </ListGroup>
-              <Card.Body>
-                <Table variant="dark" bordered striped responsive>
-                  <tbody>
-                    {report.files.map((file, fileIndex) => (
-                      <tr key={fileIndex}>
-                        <td>File {fileIndex + 1}</td>
-                        <td>
-                          <a href={file} download>
-                            Download
-                          </a>
-                        </td>
-                      </tr>
+      {filteredRapports.map((report) => (
+        <Card key={report._id} style={{ width: "100%" }}>
+          <Card.Body>
+            <Card.Title>
+              Company Name {report.application?.companyName}
+            </Card.Title>
+            <Card.Text>
+              Student Name: {report.application?.first_name}{" "}
+              {report.application?.last_name}
+              <br />
+              Start Date:{" "}
+              {moment(report.application?.startDate).format("YYYY-MM-DD")}
+              <br />
+              End Date:{" "}
+              {moment(report.application?.endDate).format("YYYY-MM-DD")}
+            </Card.Text>
+          </Card.Body>
+          <ListGroup className="list-group-flush">
+            <ListGroup.Item>Status: {report.rapport_status}</ListGroup.Item>
+            <ListGroup.Item>
+              Teacher: {report.application?.teacher_first_name}{" "}
+              {report.application?.teacher_last_name}
+            </ListGroup.Item>
+          </ListGroup>
+          <Card.Body>
+            <Table variant="dark" bordered striped responsive>
+              <tbody>
+                {report.files.map((file, fileIndex) => (
+                  <tr key={fileIndex}>
+                    <td>File {fileIndex + 1}</td>
+                    <td>
+                      <a href={file} download>
+                        Download
+                      </a>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+            <Accordion defaultActiveKey={null}>
+              <Accordion.Item eventKey="0">
+                <Accordion.Header>Messages</Accordion.Header>
+                <Accordion.Body>
+                  <ListGroup>
+                    {report.message.slice(1).map((msg, index) => (
+                      <ListGroup.Item key={index}>
+                        {`${index + 1} ✎`} {msg}
+                      </ListGroup.Item>
                     ))}
-                  </tbody>
-                </Table>
-                <Accordion defaultActiveKey="0">
-                  <Accordion.Item eventKey="0">
-                    <Accordion.Header>Messages</Accordion.Header>
-                    <Accordion.Body>
-                      <ListGroup>
-                        {report.message.map((msg, index) => (
-                          <ListGroup.Item key={index}>
-                            {`${index + 1} ✎`} {msg}
-                          </ListGroup.Item>
-                        ))}
-                      </ListGroup>
-                    </Accordion.Body>
-                  </Accordion.Item>
-                </Accordion>
-                <Form.Group controlId={`message-${report._id}`}>
-                  <Form.Label>Message:</Form.Label>
-                  <Form.Control
-                    as="textarea"
-                    rows={3}
-                    value={messages[report._id]}
-                    onChange={(e) =>
-                      handleMessageChange(report._id, e.target.value)
-                    }
-                  />
-                </Form.Group>
-                <Button onClick={() => handleUpdateMessage(report._id)}>
-                  Update Message
-                </Button>
-                <Button onClick={() => handleApprove(report._id)}>
-                  Approve
-                </Button>
-                <Button onClick={() => handleRevision(report._id)}>
-                  Revision
-                </Button>
-              </Card.Body>
-            </Card>
-          )
-      )}
+                  </ListGroup>
+                </Accordion.Body>
+              </Accordion.Item>
+            </Accordion>
+            <Form.Group controlId={`message-${report._id}`}>
+              <Form.Label>Message:</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                value={messages[report._id]}
+                onChange={(e) =>
+                  handleMessageChange(report._id, e.target.value)
+                }
+              />
+            </Form.Group>
+            <Button onClick={() => handleUpdateMessage(report._id)}>
+              Update Message
+            </Button>
+            <Button onClick={() => handleApprove(report._id)}>Approve</Button>
+            <Button onClick={() => handleRevision(report._id)}>Revision</Button>
+          </Card.Body>
+        </Card>
+      ))}
     </div>
   );
 };

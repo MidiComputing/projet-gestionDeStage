@@ -1,11 +1,9 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState } from "react";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-
 import { useNavigate } from "react-router-dom";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
-import "bootstrap/dist/css/bootstrap.min.css";
-
 import { addUser } from "../../JS/actions/useraction";
 
 const AccountModal = () => {
@@ -57,6 +55,11 @@ const AccountModal = () => {
       <Row className="justify-content-center mt-5">
         <Col md={6}>
           <div className="signup-form">
+            {!passwordsMatch && (
+              <Alert variant="danger" className="mt-2">
+                Passwords do not match.
+              </Alert>
+            )}
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
               <Form.Group controlId="first_name">
                 <Form.Label>First Name</Form.Label>

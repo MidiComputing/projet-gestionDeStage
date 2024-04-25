@@ -29,13 +29,6 @@ module.exports.signin = async (req, res) => {
       });
     }
 
-    if (existingUser.activated == false) {
-      return res.send({
-        msg: "Your account is not activated yet",
-        userID: existingUser._id,
-      });
-    }
-
     const match = await comparePwd(password, existingUser.password);
 
     if (!match) {
@@ -60,7 +53,6 @@ module.exports.getCurrentUser = (req, res) => {
   try {
     res.send({ user: req.user });
   } catch (error) {
-    res.status(500).send({ msg: error.message }); 
+    res.status(500).send({ msg: error.message });
   }
 };
-

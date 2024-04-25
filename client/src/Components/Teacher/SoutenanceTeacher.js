@@ -1,5 +1,5 @@
 import React from "react";
-import { Table } from "react-bootstrap";
+import { Table,Card } from "react-bootstrap";
 import moment from "moment";
 import { useSelector } from "react-redux";
 
@@ -15,6 +15,15 @@ const SoutenanceTeacher = () => {
       report.application.teacher_id === currentUser._id
   );
  
+  if (rapportsWithDateSoutenance.length === 0) {
+    return (
+      <Card>
+        <Card.Body>
+          <Card.Text>There are no active Stages yet.</Card.Text>
+        </Card.Body>
+      </Card>
+    );
+  }
   return (
     <div className="container mt-4">
       <h2>Rapports with Date Soutenance</h2>

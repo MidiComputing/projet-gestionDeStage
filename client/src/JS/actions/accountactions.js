@@ -7,6 +7,11 @@ import {
 
 const baseURL = "http://localhost:4500/account/";
 
+ /**
+ *@method GET /auth/
+ *@description  get all users
+ *@access authenticated user
+ */
 export const getAllAccounts = () => async (dispatch) => {
   dispatch({ type: ACCOUNTLOADING });
 

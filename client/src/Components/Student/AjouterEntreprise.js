@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Button, Table } from "react-bootstrap";
+import { Form, Button, Table, Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { addcompany, deleteCompany } from "../../JS/actions/companyactions";
 
@@ -42,34 +42,44 @@ const AjouterEntreprise = () => {
         </Button>
       </Form>
 
-      <h2>Company List</h2>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Company Name</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {allCompanies
-            .filter((company) => company.student === currentUser._id)
-            .map((company, index) => (
-              <tr key={company._id}>
-                <td>{index + 1}</td>
-                <td>{company.companyName}</td>
-                <td>
-                  <Button
-                    variant="danger"
-                    onClick={() => handleDelete(company._id)}
-                  >
-                    Delete
-                  </Button>
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </Table>
+      {allCompanies.filter((company) => company.student === currentUser._id).length === 0 ? (
+  <Card>
+    <Card.Body>
+      <Card.Text>There are no companies yet.</Card.Text>
+    </Card.Body>
+  </Card>
+) : (
+  <div>
+    <h2>Company List</h2>
+    <Table striped bordered hover>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Company Name</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {allCompanies
+          .filter((company) => company.student === currentUser._id)
+          .map((company, index) => (
+            <tr key={company._id}>
+              <td>{index + 1}</td>
+              <td>{company.companyName}</td>
+              <td>
+                <Button
+                  variant="danger"
+                  onClick={() => handleDelete(company._id)}
+                >
+                  Delete
+                </Button>
+              </td>
+            </tr>
+          ))}
+      </tbody>
+    </Table>
+  </div>
+)}
     </div>
   );
 };

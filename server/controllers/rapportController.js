@@ -30,11 +30,13 @@ module.exports.createReport = async (req, res) => {
       const existingReport = await rapportModel.findOne({
         "application._id": parsedApplication._id,
       });
-
+     
       if (existingReport) {
         // Update the existing report with new information
         existingReport.student = student;
-        existingReport.message = message;
+        if (message !== "") {
+          existingReport.message = message;
+        } 
         existingReport.files = files;
         existingReport.rapport_status = rapport_status;
         await existingReport.save();
@@ -143,10 +145,11 @@ exports.updateReport = async (req, res) => {
     if (message !== undefined) {
       existingReport.message.push(message);
     }
-
+ 
     if (date_soutenance !== undefined) {
       existingReport.date_soutenance = date_soutenance;
     }
+    
 
     await existingReport.save();
 

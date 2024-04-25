@@ -2,11 +2,14 @@ const express = require("express");
 
 const {
   validator,
-  registerRules,
-  loginRules,
-  editUserRules,
+  createReportRules,
 } = require("../middlewares/validators/bodyValidators");
-const { createReport, downloadReport, getAllReports, updateReport } = require("../controllers/rapportController");
+const {
+  createReport,
+  downloadReport,
+  getAllReports,
+  updateReport,
+} = require("../controllers/rapportController");
 
 const router = express.Router();
 
@@ -16,7 +19,7 @@ const router = express.Router();
  *@access protected(authentifié+role:student)
  */
 
-router.post("/add", createReport);
+router.post("/add", createReportRules, validator, createReport);
 
 /**
  * @method GET /rapport
@@ -30,10 +33,13 @@ router.get("/", getAllReports);
  * @description download report
  * @access Protected (only accessible to authenticated users)
  */
-router.get('/:id/download', downloadReport);
+router.get("/:id/download", downloadReport);
 
-router.put('/:id', updateReport);
-
-
+/**
+ * @method PUT /rapport/:id
+ * @description update report
+ * @access Protected (only accessible to authenticated users)
+ */
+router.put("/:id", createReportRules, validator, updateReport);
 
 module.exports = router;

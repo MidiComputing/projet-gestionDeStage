@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { addUser } from "../../../JS/actions/useraction";
-import { useNavigate } from "react-router-dom";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Signup.css";
@@ -16,7 +15,6 @@ const Signup = () => {
     confirmPassword: "",
   });
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [validated, setValidated] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -36,7 +34,7 @@ const Signup = () => {
       setPasswordsMatch(false);
       e.stopPropagation();
     } else {
-      dispatch(addUser(formData, navigate));
+      dispatch(addUser(formData));
       setValidated(true);
     }
     setValidated(true);
@@ -55,7 +53,11 @@ const Signup = () => {
       <Row className="justify-content-center mt-5">
         <Col md={6}>
           <div className="signup-form">
-         
+            {passwordsMatch === false && (
+              <Alert variant="danger" className="text-center">
+                Passwords do not match.
+              </Alert>
+            )}
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
               <Form.Group controlId="first_name">
                 <Form.Label>First Name</Form.Label>

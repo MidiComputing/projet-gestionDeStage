@@ -11,7 +11,7 @@ const initialState = {
   authloading: true,
   error: null,
   Alert: "",
-  currentUser: {}, 
+  currentUser: {},
   isAuth: false,
   currentUserR: {},
 };
@@ -29,7 +29,7 @@ export const userReducers = (state = initialState, { type, payload }) => {
       return {
         ...state,
         Alert: payload.msg,
-        currentUser: payload.user, // Update currentUser with the authenticated user data
+        currentUser: payload.user,
         authloading: false,
         isAuth: true,
       };
@@ -55,7 +55,6 @@ export const userReducers = (state = initialState, { type, payload }) => {
         currentUser: payload,
         isAuth: true,
       };
-      
 
     default:
       return state;

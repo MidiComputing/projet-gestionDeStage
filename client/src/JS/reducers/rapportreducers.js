@@ -5,7 +5,6 @@ import {
   DOWNLOAD_REPORT_SUCCESS,
   DOWNLOAD_REPORT_FAILED,
   GETALLREPORTSSUCCESS,
-  // Add other action types as needed
 } from "../actiontypes/rapporttypes";
 
 const initialState = {
@@ -14,7 +13,6 @@ const initialState = {
   error: null,
   downloadLoading: false,
   downloadError: null,
-  // Add other state variables as needed
 };
 
 export const rapportreducers = (state = initialState, { type, payload }) => {
@@ -35,9 +33,8 @@ export const rapportreducers = (state = initialState, { type, payload }) => {
       return { ...state, downloadError: payload, downloadLoading: false };
 
     case GETALLREPORTSSUCCESS:
-      return { ...state, reports: payload, loading: false }; // Update reports state with fetched reports
+      return { ...state, reports: payload, loading: false }; 
 
-    // Add cases for other action types if needed
 
     default:
       return state;

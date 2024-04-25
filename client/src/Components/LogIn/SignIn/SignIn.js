@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./SignIn.css";
 import { loginUser } from "../../../JS/actions/useraction";
+import { BsEye, BsEyeSlash } from "react-icons/bs";
  
 const SignIn = () => {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ const SignIn = () => {
   });
 
   const [validated, setValidated] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,6 +32,10 @@ const SignIn = () => {
       dispatch(loginUser(formData,navigate));
     }
     setValidated(true);
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -53,22 +59,33 @@ const SignIn = () => {
                   Please enter a valid email address.
                 </Form.Control.Feedback>
               </Form.Group>
-
+            
               <Form.Group controlId="password">
                 <Form.Label>Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="Password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  required
-                />
+                <div style={{display:"flex",gap:"10px"}}>
+                  <Form.Control
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    required
+                  />
+                 <Button
+                    variant="light"
+                    className="password-toggle"
+                    onClick={togglePasswordVisibility}
+                   
+                  >
+                    {showPassword ? <BsEyeSlash /> : <BsEye />}
+                  </Button>
+</div>
+              
                 <Form.Control.Feedback type="invalid">
                   Please enter a password.
                 </Form.Control.Feedback>
               </Form.Group>
-
+              
               <Button variant="primary" type="submit" className="btn-block">
                 Log In
               </Button>

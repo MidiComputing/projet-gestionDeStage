@@ -14,8 +14,8 @@ const router = express.Router();
 
  /**
  *@method GET /auth/
- *@description  utilisateur authentifié
- *@access private
+ *@description  get all users
+ *@access authenticated user
  */
  router.get("/",IsAuth(), getAllAccounts) 
 

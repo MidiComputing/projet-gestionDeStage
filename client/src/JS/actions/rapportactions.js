@@ -28,7 +28,7 @@ export const createReport = (newReportData) => async (dispatch) => {
     formData.append("message", newReportData.message);
     formData.append("rapport_status", newReportData.rapport_status);
     formData.append("application", JSON.stringify(newReportData.application));
-    // Append files to form data
+
     for (let file of newReportData.files) {
       formData.append("files", file);
     }
@@ -43,7 +43,6 @@ export const createReport = (newReportData) => async (dispatch) => {
 
     alert(`${res.data.msg}`);
     dispatch({ type: CREATEREPORTSUCCESS });
-    // You may dispatch any other actions you need here
   } catch (error) {
     dispatch({ type: RAPPORTFAILED, payload: error });
     console.log(error);
@@ -62,25 +61,18 @@ export const downloadReport = (reportId, filename) => async (dispatch) => {
       responseType: "blob",
     });
 
-    // Create a URL for the blob
     const url = window.URL.createObjectURL(new Blob([res.data]));
-
-    // Create a link element to trigger the download
     const link = document.createElement("a");
     link.href = url;
     link.setAttribute("download", filename);
 
-    // Append the link to the body and trigger the click event
     document.body.appendChild(link);
     link.click();
 
-    // Cleanup: Remove the link from the DOM
     document.body.removeChild(link);
 
-    // Dispatch success action
     dispatch({ type: DOWNLOAD_REPORT_SUCCESS });
   } catch (error) {
-    // Dispatch failure action with error payload
     dispatch({ type: DOWNLOAD_REPORT_FAILED, payload: error });
     console.error("Error downloading report:", error);
   }
@@ -104,6 +96,11 @@ export const getAllReports = () => async (dispatch) => {
   }
 };
 
+/**
+ * @method PUT /rapport/:id
+ * @description update report
+ * @access Protected (only accessible to authenticated users)
+ */
 export const updateReport = (reportId, updatedData) => async (dispatch) => {
   try {
     const res = await axios.put(baseURL + `${reportId}`, updatedData);

@@ -2,43 +2,72 @@ const { body, check, validationResult } = require("express-validator");
 const customError = (errors) => errors.map((e) => ({ msg: e.msg }));
 
 module.exports.registerRules = [
-  body("first_name") 
+  body("first_name")
     .notEmpty()
     .trim()
     .isLength({ min: 3 })
-    .withMessage("first name must be more than 3 characters"),
+    .withMessage("First name must be more than 3 characters"),
   body("last_name")
     .notEmpty()
     .trim()
     .isLength({ min: 3 })
-    .withMessage("last name must be more than 3 characters"),
+    .withMessage("Last name must be more than 3 characters"),
   body("email")
     .isEmail()
     .normalizeEmail()
+    .custom((value) => {
+      if (!value.endsWith("@horizon-tech.tn")) {
+        throw new Error("Email must end with @horizon-tech.tn");
+      }
+      return true;
+    })
     .trim()
-    .withMessage("enter a valid email "),
-  body("phone")
-    .notEmpty()
-    .trim()
-    .isLength({ min: 8, max: 8 })
-    .withMessage("phone number must be 8 digits"),
+    .withMessage("Enter a valid email ending with @horizon-tech.tn"),
   body("password")
     .isLength({ min: 8 })
-    .withMessage("password cannot be less than 8 characters"),
-  body("adress")
-    .notEmpty()
-    .trim()
-    .isLength({ min: 3 })
-    .withMessage("please enter a valid adress"),
-  body("birth_date").isISO8601().toDate().withMessage("please select a date"),
+    .withMessage("Password cannot be less than 8 characters"),
 ];
 
 module.exports.loginRules = [
-    body("email").isEmail().withMessage("enter a valid email "),
-    body("password")
-      .isLength({ min: 8 })
-      .withMessage("password cannot be less than 8 characters"),
-  ];
+  body("email")
+    .isEmail()
+    .custom((value) => {
+      if (!value.endsWith("@horizon-tech.tn")) {
+        throw new Error("Email must end with @horizon-tech.tn");
+      }
+      return true;
+    })
+    .withMessage("Enter a valid email ending with @horizon-tech.tn"),
+  body("password")
+    .isLength({ min: 8 })
+    .withMessage("Password cannot be less than 8 characters"),
+];
+
+module.exports.createReportRules = [
+  body().custom((value, { req }) => {
+    if (!req.body) {
+      throw new Error("Request body cannot be empty");
+    }
+    return true;
+  }),
+];
+
+module.exports.createCompany = [
+  body("companyName")
+    .notEmpty()
+    .trim()
+    .withMessage("Please enter a company name"),
+];
+
+module.exports.createApplication = [
+  body("companyName")
+    .notEmpty()
+    .trim()
+    .withMessage("Please enter a company name"),
+  body("teacher_id").notEmpty().withMessage("Please select a teacher"),
+  body("startDate").notEmpty().withMessage("Please enter a start date"),
+  body("endDate").notEmpty().withMessage("Please enter an end date"),
+];
 
 module.exports.validator = (req, res, next) => {
   const errors = validationResult(req);

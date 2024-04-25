@@ -10,7 +10,6 @@ const Rapports = () => {
   const applications = useSelector((state) => state.companyR.applications);
   const allRapports = useSelector((state) => state.rapportR.reports);
 
- console.log(allRapports)
   const allApplications = useMemo(
     () =>
       applications.filter(
@@ -28,7 +27,6 @@ const Rapports = () => {
   };
 
   const handleSubmit = (application) => {
-    // Check if selectedFiles is defined and not empty
     if (selectedFiles && selectedFiles.length > 0) {
       const newReportData = {
         student: currentUser._id,
@@ -38,11 +36,21 @@ const Rapports = () => {
         files: selectedFiles,
       };
       dispatch(createReport(newReportData));
-      setSelectedFiles([]); // Clear selectedFiles after submission
+      setSelectedFiles([]);
     } else {
       alert("Please select one or more files to upload.");
     }
   };
+
+  if (allApplications.length === 0) {
+    return (
+      <Card>
+        <Card.Body>
+          <Card.Text>There are no reports yet.</Card.Text>
+        </Card.Body>
+      </Card>
+    );
+  }
 
   return (
     <div className="container mt-4">
@@ -50,8 +58,7 @@ const Rapports = () => {
       <div className="row">
         {allApplications.map((application) => (
           <div key={application._id} className="col-md-12 mb-3">
-            <Card>
-              {/* Smaller placeholder image */}
+            <Card>           
               <Card.Img
                 variant="top"
                 src="holder.js/100px180?text=Image cap"
@@ -73,20 +80,24 @@ const Rapports = () => {
                 </ListGroup.Item>
                 <ListGroup.Item>
                   Status:{" "}
-                  {allRapports
-                    .find((report) => report.application._id === application._id)
-                    ?.rapport_status}
+                  {
+                    allRapports.find(
+                      (report) => report.application._id === application._id
+                    )?.rapport_status
+                  }
                 </ListGroup.Item>
               </ListGroup>
-              <Accordion defaultActiveKey="0">
+              <Accordion defaultActiveKey={null}>
                 <Accordion.Item eventKey="0">
                   <Accordion.Header>Messages</Accordion.Header>
                   <Accordion.Body>
                     <ListGroup>
                       {allRapports
-                        .filter((report) => report.application._id === application._id)
+                        .filter(
+                          (report) => report.application._id === application._id
+                        )
                         .map((report) =>
-                          report.message.map((msg, index) => (
+                          report.message.slice(1).map((msg, index) => (
                             <ListGroup.Item key={index}>
                               {`${index + 1} ✎`} {msg}
                             </ListGroup.Item>

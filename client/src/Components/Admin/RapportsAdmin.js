@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Card, ListGroup, Accordion } from "react-bootstrap";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,31 +8,40 @@ import { updateReport } from "../../JS/actions/rapportactions";
 
 const RapportsAdmin = () => {
   const dispatch = useDispatch();
-  const allRapports = useSelector((state) =>
-    state.rapportR.reports.filter(
-      (report) => report.rapport_status === "approved"
-    )
-  );
-  
-  // State to store selected dates for each report
+  const allReports = useSelector((state) => state.rapportR.reports);
+
   const [selectedDates, setSelectedDates] = useState({});
 
-  // Function to handle date change for a specific report
+  const filteredReports = useMemo(
+    () => allReports.filter((report) => report.rapport_status === "approved"),
+    [allReports]
+  );
+
   const handleDateChange = (date, reportId) => {
     setSelectedDates({ ...selectedDates, [reportId]: date });
   };
 
-  // Function to handle date revision for a specific report
   const handleRevision = (reportId) => {
-    // Dispatch action to update the report with the selected date
-    dispatch(updateReport(reportId, { date_soutenance: selectedDates[reportId] }));
+    dispatch(
+      updateReport(reportId, { date_soutenance: selectedDates[reportId] })
+    );
   };
+
+  if (filteredReports.length === 0) {
+    return (
+      <Card>
+        <Card.Body>
+          <Card.Text>There are no reports yet.</Card.Text>
+        </Card.Body>
+      </Card>
+    );
+  }
 
   return (
     <div className="container mt-4">
       <h2>Approved Reports</h2>
       <div className="row">
-        {allRapports.map((report) => (
+        {filteredReports.map((report) => (
           <div key={report._id} className="col-md-12 mb-3">
             <Card>
               <Card.Body>
@@ -52,7 +61,7 @@ const RapportsAdmin = () => {
                 </ListGroup.Item>
                 <ListGroup.Item>Status: {report.rapport_status}</ListGroup.Item>
               </ListGroup>
-              <Accordion defaultActiveKey="0">
+              <Accordion defaultActiveKey={null}>
                 <Accordion.Item eventKey="0">
                   <Accordion.Header>Messages</Accordion.Header>
                   <Accordion.Body>
@@ -60,10 +69,12 @@ const RapportsAdmin = () => {
                       <h2>Choose Date for Revision</h2>
                       <div>
                         <DatePicker
-                          selected={selectedDates[report._id] || null} // Use selected date for this report, if available
-                          onChange={(date) => handleDateChange(date, report._id)} // Handle date change for this report
-                          dateFormat="dd/MM/yyyy" // Date format
-                          placeholderText="Select a date" // Placeholder text
+                          selected={selectedDates[report._id] || null}
+                          onChange={(date) =>
+                            handleDateChange(date, report._id)
+                          }
+                          dateFormat="dd/MM/yyyy"
+                          placeholderText="Select a date"
                         />
                         <button onClick={() => handleRevision(report._id)}>
                           Update Date

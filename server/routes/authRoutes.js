@@ -19,7 +19,7 @@ const router = express.Router();
  *@access public
  */
 
-router.post("/signup", Signup);
+router.post("/signup", registerRules, validator, Signup);
 
 /**
  *@method POST /auth/signin
@@ -27,18 +27,13 @@ router.post("/signup", Signup);
  *@access public
  */
 
-router.post("/signin", signin);
+router.post("/signin", loginRules, validator, signin);
 
 /**
  *@method GET /auth/
  *@description  utilisateur authentifié
  *@access private
  */
- router.get("/",IsAuth(), getCurrentUser) 
-
-
-
+router.get("/", IsAuth(), getCurrentUser);
 
 module.exports = router;
-
-

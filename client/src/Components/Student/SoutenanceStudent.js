@@ -1,5 +1,5 @@
 import React from "react";
-import { Table } from "react-bootstrap";
+import { Table, Card } from "react-bootstrap";
 import moment from "moment";
 import { useSelector } from "react-redux";
 
@@ -14,6 +14,16 @@ const SoutenanceStudent = () => {
       report.date_soutenance !== undefined &&
       report.application.student === currentUser._id
   );
+
+  if (rapportsWithDateSoutenance.length === 0) {
+    return (
+      <Card>
+        <Card.Body>
+          <Card.Text>There are no presentations yet.</Card.Text>
+        </Card.Body>
+      </Card>
+    );
+  }
 
   return (
     <div className="container mt-4">

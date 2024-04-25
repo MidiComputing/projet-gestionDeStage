@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Button, Table } from "react-bootstrap";
+import { Form, Button, Table, Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { addApplication } from "../../JS/actions/companyactions";
 import moment from "moment";
@@ -71,13 +71,18 @@ const DemandeStage = () => {
             onChange={handleChange}
           >
             <option value="">Select a company</option>
-            {allCompanies
-              .filter((company) => company.student === currentUser._id)
-              .map((company) => (
-                <option key={company._id} value={company.companyName}>
-                  {company.companyName}
-                </option>
-              ))}
+
+            {allCompanies.length === 0 ? (
+              <option value="">There are no companies yet</option>
+            ) : (
+              allCompanies
+                .filter((company) => company.student === currentUser._id)
+                .map((company) => (
+                  <option key={company._id} value={company.companyName}>
+                    {company.companyName}
+                  </option>
+                ))
+            )}
           </Form.Control>
         </Form.Group>
         <Form.Group controlId="teacherSelect">
@@ -99,14 +104,18 @@ const DemandeStage = () => {
             )}
             {allAccounts
               .filter((account) => account.role === "teacher")
-              .map((teacher) => (
-                <option
-                  key={teacher._id}
-                  value={`${teacher.first_name} ${teacher.last_name}`}
-                >
-                  {teacher.first_name} {teacher.last_name}
-                </option>
-              ))}
+              .map((teacher) =>
+                teacher.length === 0 ? (
+                  <option value="">there are no teachers yet</option>
+                ) : (
+                  <option
+                    key={teacher._id}
+                    value={`${teacher.first_name} ${teacher.last_name}`}
+                  >
+                    {teacher.first_name} {teacher.last_name}
+                  </option>
+                )
+              )}
           </Form.Control>
         </Form.Group>
 
@@ -134,62 +143,67 @@ const DemandeStage = () => {
       </Form>
 
       <h2>All Applications</h2>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Company Name</th>
-            <th>Teacher</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {allApplications.map((application, index) => {
-            if (application.student === currentUser._id) {
-              return (
-                <tr key={index}>
-                  <td>{application.first_name}</td>
-                  <td>{application.last_name}</td>
-                  <td>{application.companyName}</td>
-                  <td>
-                    {application.teacher_first_name}{" "}
-                    {application.teacher_last_name}
-                  </td>
-                  <td>
-                    {moment(application.startDate).format("MMMM Do YYYY")}
-                  </td>
-                  <td>{moment(application.endDate).format("MMMM Do YYYY")}</td>
-                  <td
-                    style={{
-                      color:
-                        application.status === "pending"
-                          ? "gray"
-                          : application.status === "approved"
-                          ? "green"
-                          : "red",
-                    }}
-                  >
-                    {application.status}
-                  </td>
-                </tr>
-              );
-            } else {
-              return null;
-            }
-          })}
-          {allApplications.every(
-            (application) => application.student !== currentUser._id
-          ) && (
+      {allApplications.every(
+        (application) => application.student !== currentUser._id
+      ) ? (
+        <Card>
+          <Card.Body>
+            <Card.Text>You have not submitted any applications yet.</Card.Text>
+          </Card.Body>
+        </Card>
+      ) : (
+        <Table striped bordered hover>
+          <thead>
             <tr>
-              <td colSpan="7">You have not submitted any applications yet.</td>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Company Name</th>
+              <th>Teacher</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>Status</th>
             </tr>
-          )}
-        </tbody>
-      </Table>
+          </thead>
+
+          <tbody>
+            {allApplications.map((application, index) => {
+              if (application.student === currentUser._id) {
+                return (
+                  <tr key={index}>
+                    <td>{application.first_name}</td>
+                    <td>{application.last_name}</td>
+                    <td>{application.companyName}</td>
+                    <td>
+                      {application.teacher_first_name}{" "}
+                      {application.teacher_last_name}
+                    </td>
+                    <td>
+                      {moment(application.startDate).format("MMMM Do YYYY")}
+                    </td>
+                    <td>
+                      {moment(application.endDate).format("MMMM Do YYYY")}
+                    </td>
+                    <td
+                      style={{
+                        color:
+                          application.status === "pending"
+                            ? "gray"
+                            : application.status === "approved"
+                            ? "green"
+                            : "red",
+                      }}
+                    >
+                      {application.status}
+                    </td>
+                  </tr>
+                );
+              } else {
+                return null;
+              }
+            })}
+          </tbody>
+        </Table>
+      )}
     </div>
   );
 };
