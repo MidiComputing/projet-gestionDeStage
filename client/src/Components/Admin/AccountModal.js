@@ -52,9 +52,9 @@ const AccountModal = () => {
 
   return (
     <Container>
-      <Row className="justify-content-center mt-5">
-        <Col md={6}>
-          <div className="signup-form">
+      <Row>
+        <Col md={12}>
+          <div>
             {!passwordsMatch && (
               <Alert variant="danger" className="mt-2">
                 Passwords do not match.
@@ -121,6 +121,11 @@ const AccountModal = () => {
                     required
                   />
                   <Button
+                    style={{
+                      backgroundColor: "#6A62FA",
+                      borderColor: "#6A62FA",
+                      color: "white",
+                    }}
                     variant="light"
                     className="password-toggle"
                     onClick={() => togglePasswordVisibility("password")}
@@ -148,6 +153,11 @@ const AccountModal = () => {
                     required
                   />
                   <Button
+                    style={{
+                      backgroundColor: "#6A62FA",
+                      borderColor: "#6A62FA",
+                      color: "white",
+                    }}
                     variant="light"
                     className="password-toggle"
                     onClick={() => togglePasswordVisibility("confirmPassword")}
@@ -162,8 +172,19 @@ const AccountModal = () => {
                 </Form.Control.Feedback>
               </Form.Group>
 
-              <Button variant="primary" type="submit" className="btn-block">
-                Sign Up
+              <Button
+                style={{
+                  backgroundColor: "#6A62FA",
+                  borderColor: "#6A62FA",
+                  borderRadius: "30px",
+                  marginTop: "20px",
+                  width: "100%",
+                }}
+                variant="primary"
+                type="submit"
+                className="btn-block"
+              >
+                Create Account
               </Button>
             </Form>
           </div>

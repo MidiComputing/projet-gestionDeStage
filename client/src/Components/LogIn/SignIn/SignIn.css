@@ -1,28 +1,19 @@
 .login-form {
-    background: #f8f9fa;
-    padding: 30px;
-    border-radius: 10px;
-  }
-  
-  .login-form h2 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .login-form form {
-    margin-top: 20px;
-  }
-  
-  .login-form .form-group {
-    margin-bottom: 20px;
-  }
-  
-  .login-form .btn-block {
-    width: 100%;
-  }
-  
-  @media (min-width: 576px) {
-    .login-form {
-      margin-top: 50px;
-    }
-  }
+  background: #3A3B3D;
+  padding-left: 20px;
+  padding-right: 20px;
+  width: 100%;
+}
+
+.login-form .btn-block {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.custom-background {
+  background-color: #242527;
+}
+
+.custom-placeholder::placeholder {
+  color: #cdcdcd;
+}

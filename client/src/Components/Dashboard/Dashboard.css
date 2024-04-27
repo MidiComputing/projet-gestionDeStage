@@ -1,0 +1,56 @@
+.bg-dark {
+  background-color: #242527 !important;
+}
+
+.nav-link {
+  color: #ffffff !important;
+  height: 70px;
+}
+
+.nav-link.active {
+  background-color: #6a62fa !important;
+}
+
+.nav-link:hover {
+  background-color: #3a3b3d !important;
+}
+
+.nav-link:focus {
+  background-color: #6a62fa !important;
+  color: #ffffff !important;
+}
+
+.sidebar {
+  width: 120px;
+  height: 100vh;
+  transition: width 0.3s;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.sidebar:hover {
+  width: 25%;
+  height: 100vh;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.nav-link span {
+  display: none;
+}
+
+.sidebar:hover .nav-link span {
+  display: inline;
+  margin-left: 10px;
+}
+
+.nav-link:hover span {
+  display: inline;
+  margin-left: 10px;
+}

@@ -2,6 +2,7 @@ import React from "react";
 import { Table, Card } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import moment from "moment";
+import { FaRegCalendarAlt } from "react-icons/fa";
 
 const StagesActifsTeacher = () => {
   const currentUser = useSelector((state) => state.userR.currentUser);
@@ -25,9 +26,21 @@ const StagesActifsTeacher = () => {
   }
 
   return (
-    <div>
-      <h2>Stages Actifs</h2>
-      <Table striped bordered hover>
+    <Card
+    border="secondary"
+    className="bg-dark text-white"
+    style={{ minHeight: "90vh" }}
+  >
+    <Card.Text
+      as="h2"
+      className="m-3"
+      style={{ fontFamily: "monospace", fontWeight: "600" }}
+    >
+      Stages Actifs
+    </Card.Text>
+    <hr />
+    <Card.Body>
+    <Table variant="light" striped bordered hover>
         <thead>
           <tr>
             <th>First Name</th>
@@ -44,13 +57,15 @@ const StagesActifsTeacher = () => {
               <td>{application.first_name}</td>
               <td>{application.last_name}</td>
               <td>{application.companyName}</td>
-              <td>{moment(application.startDate).format("MMMM Do YYYY")}</td>
-              <td>{moment(application.endDate).format("MMMM Do YYYY")}</td>
+              <td><FaRegCalendarAlt /> {moment(application.startDate).format("MMMM Do YYYY")}</td>
+              <td><FaRegCalendarAlt /> {moment(application.endDate).format("MMMM Do YYYY")}</td>
             </tr>
           ))}
         </tbody>
       </Table>
-    </div>
+    </Card.Body>
+  </Card>
+    
   );
 };
 

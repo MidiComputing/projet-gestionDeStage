@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./SignIn.css";
 import { loginUser } from "../../../JS/actions/useraction";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
- 
+
 const SignIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ const SignIn = () => {
     if (form.checkValidity() === false) {
       e.stopPropagation();
     } else {
-      dispatch(loginUser(formData,navigate));
+      dispatch(loginUser(formData, navigate));
     }
     setValidated(true);
   };
@@ -40,13 +40,12 @@ const SignIn = () => {
 
   return (
     <Container>
-      <Row className="justify-content-center mt-5">
-        <Col md={6}>
+      <Row>
+        <Col md={12}>
           <div className="login-form">
-            
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
               <Form.Group controlId="email">
-                <Form.Label>Email</Form.Label>
+                <Form.Label style={{ color: "gray" }}>Email</Form.Label>
                 <Form.Control
                   type="email"
                   placeholder="Enter email"
@@ -54,15 +53,17 @@ const SignIn = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
+                  className="custom-background custom-placeholder"
+                  style={{ color: "gray" }}
                 />
                 <Form.Control.Feedback type="invalid">
                   Please enter a valid email address.
                 </Form.Control.Feedback>
               </Form.Group>
-            
+
               <Form.Group controlId="password">
-                <Form.Label>Password</Form.Label>
-                <div style={{display:"flex",gap:"10px"}}>
+                <Form.Label style={{ color: "gray" }}>Password</Form.Label>
+                <div style={{ display: "flex", gap: "10px" }}>
                   <Form.Control
                     type={showPassword ? "text" : "password"}
                     placeholder="Password"
@@ -70,23 +71,38 @@ const SignIn = () => {
                     value={formData.password}
                     onChange={handleChange}
                     required
+                    className="custom-background custom-placeholder"
+                    style={{ color: "gray" }}
                   />
-                 <Button
+                  <Button
                     variant="light"
                     className="password-toggle"
                     onClick={togglePasswordVisibility}
-                   
+                    style={{
+                      color: "white",
+                      backgroundColor: "#6A62FA",
+                      borderColor: "#6A62FA",
+                    }}
                   >
                     {showPassword ? <BsEyeSlash /> : <BsEye />}
                   </Button>
-</div>
-              
+                </div>
+
                 <Form.Control.Feedback type="invalid">
                   Please enter a password.
                 </Form.Control.Feedback>
               </Form.Group>
-              
-              <Button variant="primary" type="submit" className="btn-block">
+
+              <Button
+                style={{
+                  backgroundColor: "#6A62FA",
+                  borderColor: "#6A62FA",
+                  borderRadius: "30px",
+                }}
+                variant="primary"
+                type="submit"
+                className="btn-block"
+              >
                 Log In
               </Button>
             </Form>

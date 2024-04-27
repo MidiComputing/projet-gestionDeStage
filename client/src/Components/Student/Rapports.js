@@ -1,8 +1,9 @@
 import React, { useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createReport } from "../../JS/actions/rapportactions";
-import { Card, ListGroup, Accordion } from "react-bootstrap";
+import { Card, ListGroup, Accordion, Button } from "react-bootstrap";
 import moment from "moment";
+import { FaRegCalendarAlt } from "react-icons/fa";
 
 const Rapports = () => {
   const dispatch = useDispatch();
@@ -53,30 +54,40 @@ const Rapports = () => {
   }
 
   return (
-    <div className="container mt-4">
-      <h2>Upload Reports</h2>
-      <div className="row">
+    <Card
+      border="secondary"
+      className="bg-dark text-white"
+      style={{ minHeight: "90vh" }}
+    >
+      <Card.Text
+        as="h2"
+        className="m-3"
+        style={{ fontFamily: "monospace", fontWeight: "600" }}
+      >
+        Upload Reports
+      </Card.Text>
+      <hr />
+      <Card.Body>
         {allApplications.map((application) => (
           <div key={application._id} className="col-md-12 mb-3">
-            <Card>           
-              <Card.Img
-                variant="top"
-                src="holder.js/100px180?text=Image cap"
-                style={{ maxWidth: "100px" }}
-              />
+            <Card>
               <Card.Body>
                 <Card.Title>{application.companyName}</Card.Title>
-                <Card.Text>
-                  Teacher: {application.teacher_first_name}{" "}
-                  {application.teacher_last_name}
-                </Card.Text>
               </Card.Body>
               <ListGroup className="list-group-flush">
                 <ListGroup.Item>
-                  Start Date:{" "}
+                  Teacher: {application.teacher_first_name}{" "}
+                  {application.teacher_last_name}
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  Student: {application.first_name} {application.last_name}
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  Start Date: <FaRegCalendarAlt />{" "}
                   {moment(application.startDate).format("YYYY-MM-DD")}
                   <br />
-                  End Date: {moment(application.endDate).format("YYYY-MM-DD")}
+                  End Date: <FaRegCalendarAlt />{" "}
+                  {moment(application.endDate).format("YYYY-MM-DD")}
                 </ListGroup.Item>
                 <ListGroup.Item>
                   Status:{" "}
@@ -87,9 +98,9 @@ const Rapports = () => {
                   }
                 </ListGroup.Item>
               </ListGroup>
-              <Accordion defaultActiveKey={null}>
+              <Accordion className="mt-2 p-2" defaultActiveKey={0}>
                 <Accordion.Item eventKey="0">
-                  <Accordion.Header>Messages</Accordion.Header>
+                  <Accordion.Header>Comments</Accordion.Header>
                   <Accordion.Body>
                     <ListGroup>
                       {allRapports
@@ -114,19 +125,24 @@ const Rapports = () => {
                   multiple
                   onChange={handleFileChange}
                 />
-                <button
-                  type="button"
-                  className="btn btn-primary mt-2"
+                <Button
+                  style={{
+                    backgroundColor: "#6A62FA",
+                    borderColor: "#6A62FA",
+                    borderRadius: "30px",
+                    marginTop: "20px",
+                    width: "100%",
+                  }}
                   onClick={() => handleSubmit(application)}
                 >
-                  Upload Report
-                </button>
+                  Upload Files
+                </Button>
               </Card.Body>
             </Card>
           </div>
         ))}
-      </div>
-    </div>
+      </Card.Body>
+    </Card>
   );
 };
 

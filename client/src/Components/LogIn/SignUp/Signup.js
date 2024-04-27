@@ -50,8 +50,8 @@ const Signup = () => {
 
   return (
     <Container>
-      <Row className="justify-content-center mt-5">
-        <Col md={6}>
+      <Row >
+        <Col md={12}>
           <div className="signup-form">
             {passwordsMatch === false && (
               <Alert variant="danger" className="text-center">
@@ -60,7 +60,7 @@ const Signup = () => {
             )}
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
               <Form.Group controlId="first_name">
-                <Form.Label>First Name</Form.Label>
+                <Form.Label style={{ color: "gray" }}>First Name</Form.Label>
                 <Form.Control
                   type="text"
                   placeholder="Enter first name"
@@ -68,6 +68,8 @@ const Signup = () => {
                   value={formData.first_name}
                   onChange={handleChange}
                   required
+                  className="custom-background custom-placeholder"
+                  style={{ color: "gray" }}
                 />
                 <Form.Control.Feedback type="invalid">
                   Please enter your first name.
@@ -75,7 +77,7 @@ const Signup = () => {
               </Form.Group>
 
               <Form.Group controlId="last_name">
-                <Form.Label>Last Name</Form.Label>
+                <Form.Label style={{ color: "gray" }}>Last Name</Form.Label>
                 <Form.Control
                   type="text"
                   placeholder="Enter last name"
@@ -83,6 +85,8 @@ const Signup = () => {
                   value={formData.last_name}
                   onChange={handleChange}
                   required
+                  className="custom-background custom-placeholder"
+                  style={{ color: "gray" }}
                 />
                 <Form.Control.Feedback type="invalid">
                   Please enter your last name.
@@ -90,7 +94,7 @@ const Signup = () => {
               </Form.Group>
 
               <Form.Group controlId="email">
-                <Form.Label>Email</Form.Label>
+                <Form.Label style={{ color: "gray" }}>Email</Form.Label>
                 <Form.Control
                   type="email"
                   placeholder="Enter email"
@@ -98,6 +102,8 @@ const Signup = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
+                  className="custom-background custom-placeholder"
+                  style={{ color: "gray" }}
                 />
                 <Form.Control.Feedback type="invalid">
                   Please enter a valid email address.
@@ -105,8 +111,11 @@ const Signup = () => {
               </Form.Group>
 
               <Form.Group controlId="password">
-                <Form.Label>Password</Form.Label>
-                <div style={{ display: "flex", gap: "10px" }} className="password-input">
+                <Form.Label style={{ color: "gray" }}>Password</Form.Label>
+                <div
+                  style={{ display: "flex", gap: "10px" }}
+                  className="password-input"
+                >
                   <Form.Control
                     type={showPassword ? "text" : "password"}
                     placeholder="Password"
@@ -114,11 +123,18 @@ const Signup = () => {
                     value={formData.password}
                     onChange={handleChange}
                     required
+                    className="custom-background custom-placeholder"
+                    style={{ color: "gray" }}
                   />
                   <Button
                     variant="light"
                     className="password-toggle"
                     onClick={() => togglePasswordVisibility("password")}
+                    style={{
+                      color: "white",
+                      backgroundColor: "#6A62FA",
+                      borderColor: "#6A62FA",
+                    }}
                   >
                     {showPassword ? <BsEyeSlash /> : <BsEye />}
                   </Button>
@@ -129,8 +145,11 @@ const Signup = () => {
               </Form.Group>
 
               <Form.Group controlId="confirmPassword">
-                <Form.Label>Confirm Password</Form.Label>
-                <div style={{ display: "flex", gap: "10px" }} className="password-input">
+                <Form.Label style={{ color: "gray" }}>Confirm Password</Form.Label>
+                <div
+                  style={{ display: "flex", gap: "10px" }}
+                  className="password-input"
+                >
                   <Form.Control
                     type={showConfirmPassword ? "text" : "password"}
                     placeholder="Confirm Password"
@@ -138,21 +157,40 @@ const Signup = () => {
                     value={formData.confirmPassword}
                     onChange={handleChange}
                     required
+                    className="custom-background custom-placeholder"
+                    style={{ color: "gray" }}
                   />
                   <Button
                     variant="light"
                     className="password-toggle"
                     onClick={() => togglePasswordVisibility("confirmPassword")}
+                    style={{
+                      color: "white",
+                      backgroundColor: "#6A62FA",
+                      borderColor: "#6A62FA",
+                    }}
                   >
                     {showConfirmPassword ? <BsEyeSlash /> : <BsEye />}
                   </Button>
                 </div>
                 <Form.Control.Feedback type="invalid">
-                  {passwordsMatch ? "Passwords do not match." : "Please confirm your password."}
+                  {passwordsMatch
+                    ? "Passwords do not match."
+                    : "Please confirm your password."}
                 </Form.Control.Feedback>
               </Form.Group>
 
-              <Button variant="primary" type="submit" className="btn-block">
+              <Button
+                style={{
+                  backgroundColor: "#6A62FA",
+                  borderColor: "#6A62FA",
+                  borderRadius: "30px",
+                  marginTop: "20px",
+                }}
+                variant="primary"
+                type="submit"
+                className="btn-block"
+              >
                 Sign Up
               </Button>
             </Form>

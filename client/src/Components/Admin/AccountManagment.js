@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal, Button, Table, Card } from "react-bootstrap";
+import { Button, Table, Card, Offcanvas } from "react-bootstrap";
 import AccountModal from "./AccountModal";
 import { useSelector } from "react-redux";
 
@@ -22,35 +22,73 @@ const AccountManagement = () => {
   }
   return (
     <>
-      <Button onClick={handleShowModal}>Add Teacher Account</Button>
-      <Modal show={showModal} onHide={handleCloseModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Add Teacher Account</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <AccountModal />
-        </Modal.Body>
-      </Modal>
+      <Card
+        border="secondary"
+        className="bg-dark text-white"
+        style={{ minHeight: "90vh" }}
+      >
+        <Card.Text
+          as="h2"
+          className="m-3"
+          style={{ fontFamily: "monospace", fontWeight: "600" }}
+        >
+          Teachers
+        </Card.Text>
+        <hr />
+        <Card.Body>
+          <Table variant="light" striped bordered hover>
+            <thead>
+              <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              {teachers.map((teacher) => (
+                <tr key={teacher._id}>
+                  <td>{teacher.first_name}</td>
+                  <td>{teacher.last_name}</td>
+                  <td>{teacher.email}</td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+          <Button
+            style={{
+              backgroundColor: "#6A62FA",
+              borderColor: "#6A62FA",
+              borderRadius: "30px",
+              width: "100%",
+            }}
+            onClick={handleShowModal}
+          >
+            Add Teacher Account
+          </Button>
+        </Card.Body>
+      </Card>
 
-      <h2>Teachers</h2>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-          </tr>
-        </thead>
-        <tbody>
-          {teachers.map((teacher) => (
-            <tr key={teacher._id}>
-              <td>{teacher.first_name}</td>
-              <td>{teacher.last_name}</td>
-              <td>{teacher.email}</td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+      <Offcanvas
+        style={{ width: "40%" }}
+        show={showModal}
+        onHide={handleCloseModal}
+        placement="end"
+      >
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title
+            style={{
+              color: "#6A62FA",
+              fontWeight: "500",
+              fontSize: "2rem",
+            }}
+          >
+            Add a teacher account
+          </Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+          <AccountModal />
+        </Offcanvas.Body>
+      </Offcanvas>
     </>
   );
 };
