@@ -1,0 +1,18 @@
+.signup-form {
+  background: #3A3B3D;
+  padding-left: 20px;
+  padding-right: 20px;
+  width: 100%;
+}
+
+.signup-form .btn-block {
+  width: 100%;
+}
+
+.custom-background {
+  background-color: #242527;
+}
+
+.custom-placeholder::placeholder {
+  color: #cdcdcd;
+}
