@@ -58,6 +58,18 @@ function App() {
           </PrivateRoute>
         }
       />
+        <Route
+        path="/responsable"
+        element={
+          <PrivateRoute>
+            {currentUser?.role == "responsable" ? (
+              <StudentDashboard />
+            ) : (
+              <Navigate to="/login" />
+            )}
+          </PrivateRoute>
+        }
+      />
     </Routes>
   );
 }
