@@ -59,11 +59,11 @@ function App() {
         }
       />
         <Route
-        path="/teacher"
+        path="/responsable"
         element={
           <PrivateRoute>
-            {currentUser?.role == "teacher" ? (
-              <TeacherDashboard />
+            {currentUser?.role == "reponsable" ? (
+              <ResponsableDashboard />
             ) : (
               <Navigate to="/login" />
             )}
