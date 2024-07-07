@@ -5,6 +5,7 @@ require("dotenv").config({ path: "./config/.env" });
 PORT = process.env.port || 4500;
 app.use(cors({
   origin: 'http://localhost:3000' // Replace with your frontend origin
+  //origin: 'http://localhost:4000'  //test app
 }));
 const connectToDB = require("./config/DataBase");
 
