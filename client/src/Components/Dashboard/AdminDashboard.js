@@ -159,6 +159,7 @@ const AdminDashboard = () => {
             {activeTab === "tab6" && <SoutenanceAdmin />}
             {activeTab === "tab7" && <ProfileAdmin />} 
             {activeTab === "tab8" && <Notification />} 
+            {activeTab === "tab9" && <Settings />}
           </div>
         </Col>
       </Row>
