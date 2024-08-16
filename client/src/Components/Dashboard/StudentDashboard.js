@@ -162,6 +162,7 @@ const StudentDashboard = () => {
             {activeTab === "tab6" && <SoutenanceStudent />}
             {activeTab === "tab7" && <ProfilStudent />}
             {activeTab === "tab8" && <SettingsStudent />}
+            {activeTab === "tab8" && <Logout />}
           </div>
         </Col>
       </Row>
