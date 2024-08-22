@@ -160,9 +160,10 @@ const StudentDashboard = () => {
             {activeTab === "tab3" && <AjouterEntreprise />}
             {activeTab === "tab5" && <Rapports />}
             {activeTab === "tab6" && <SoutenanceStudent />}
-            {activeTab === "tab7" && <ProfilStudent />}
-            {activeTab === "tab8" && <SettingsStudent />}
-            {activeTab === "tab8" && <Logout />}
+            {activeTab === "tab7" && <CoursStudent />}
+            {activeTab === "tab8" && <ProfilStudent />}
+            {activeTab === "tab9" && <SettingsStudent />}
+            {activeTab === "tab10" && <Logout />}
           </div>
         </Col>
       </Row>
