@@ -164,8 +164,9 @@ const StudentDashboard = () => {
             {activeTab === "tab8" && <ProfilStudent />}
             {activeTab === "tab9" && <SettingsStudent />}
             {activeTab === "tab10" && <NotificationStudent />}
-            {activeTab === "tab11" && <Logout />}
-            {activeTab === "tab12" && <Help? />}
+            {activeTab === "tab11" && <Logout />} 
+            {activeTab === "tab12" && <Contacts />}
+            {activeTab === "tab13" && <Help? />}
           </div>
         </Col>
       </Row>
