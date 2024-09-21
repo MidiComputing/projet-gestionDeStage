@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import DemandeStage from "../Student/DemandeStage";
 import SettingsStudent from "../Student/SettingsStudent";
 import DemandeStage from "../Student/DemandeStage";
+import NotificationStudent from "../Student/NotificationStudent";
 import {
   getallApplications,
   getallCompanies,
