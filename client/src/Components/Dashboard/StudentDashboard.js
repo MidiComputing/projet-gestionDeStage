@@ -10,7 +10,6 @@ import {
   getallApplications,
   getallCompanies,
 } from "../../JS/actions/companyactions";
-import { getAllAccounts } from "../../JS/actions/accountactions";
 import StagesActifs from "../Student/StagesActifs";
 import Rapports from "../Student/Rapports";
 import { getAllReports } from "../../JS/actions/rapportactions";
