@@ -12,7 +12,6 @@ import {
 import StagesActifs from "../Student/StagesActifs";
 import Rapports from "../Student/Rapports";
 import { getAllReports } from "../../JS/actions/rapportactions";
-import SoutenanceStudent from "../Student/SoutenanceStudent";
 import Logo from "../LogIn/Logo.svg";
 import circleLogo from "../LogIn/CircleLogo.svg";
 import "./Dashboard.css";
