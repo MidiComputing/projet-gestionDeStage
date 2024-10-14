@@ -9,7 +9,6 @@ import {
   getallApplications,
   getallCompanies,
 } from "../../JS/actions/companyactions";
-import StagesActifs from "../Student/StagesActifs";
 import Rapports from "../Student/Rapports";
 import { getAllReports } from "../../JS/actions/rapportactions";
 import Logo from "../LogIn/Logo.svg";
