@@ -4,7 +4,6 @@ import { logout } from "../../JS/actions/useraction";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import SettingsStudent from "../Student/SettingsStudent";
-import DemandeStage from "../Student/DemandeStage";
 import {
   getallApplications,
   getallCompanies,
