@@ -3,7 +3,6 @@ import { Container, Row, Col, Nav, Image } from "react-bootstrap";
 import { logout } from "../../JS/actions/useraction";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import SettingsStudent from "../Student/SettingsStudent";
 import {
   getallApplications,
   getallCompanies,
