@@ -11,7 +11,6 @@ import { getAllReports } from "../../JS/actions/rapportactions";
 import Logo from "../LogIn/Logo.svg";
 import circleLogo from "../LogIn/CircleLogo.svg";
 import "./Dashboard.css";
-import { RiNewspaperLine } from "react-icons/ri";
 import { FaGears } from "react-icons/fa6";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 import { IoCalendarOutline } from "react-icons/io5";
