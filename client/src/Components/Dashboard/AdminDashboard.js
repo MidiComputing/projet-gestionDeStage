@@ -33,10 +33,6 @@ const AdminDashboard = () => {
     dispatch(getAllReports());
   }, [dispatch]);
 
-  const handleTabSelect = (eventKey) => {
-    setActiveTab(eventKey);
-  };
-
   const handleLogout = () => {
     dispatch(logout());
     navigate("/login");
