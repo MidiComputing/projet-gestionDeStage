@@ -3,7 +3,6 @@ import { Container, Row, Col, Nav, Image } from "react-bootstrap";
 import { logout } from "../../JS/actions/useraction";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import DemandeStageAdmin from "../Admin/DemandeStageAdmin";
 import { getallApplications } from "../../JS/actions/companyactions";
 import { getAllAccounts } from "../../JS/actions/accountactions";
 import StagesActifsAdmin from "../Admin/StageActifsAdmin";
