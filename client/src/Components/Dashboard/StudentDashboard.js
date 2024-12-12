@@ -7,7 +7,6 @@ import {
   getallApplications,
   getallCompanies,
 } from "../../JS/actions/companyactions";
-import { getAllReports } from "../../JS/actions/rapportactions";
 import Logo from "../LogIn/Logo.svg";
 import circleLogo from "../LogIn/CircleLogo.svg";
 import "./Dashboard.css";
