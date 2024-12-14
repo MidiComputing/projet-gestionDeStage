@@ -152,7 +152,6 @@ const StudentDashboard = () => {
             {activeTab === "tab2" && <StagesActifs />}
             {activeTab === "tab3" && <AjouterEntreprise />}
             {activeTab === "tab4" && <AjouterEncadrant />}
-            {activeTab === "tab5" && <Déconnecter />} 
           </div>
         </Col>
       </Row>
