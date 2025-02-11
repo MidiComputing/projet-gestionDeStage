@@ -8,7 +8,6 @@ import {
   getallCompanies,
 } from "../../JS/actions/companyactions";
 import Logo from "../LogIn/Logo.svg";
-import circleLogo from "../LogIn/CircleLogo.svg";
 import "./Dashboard.css";
 import { FaGears } from "react-icons/fa6";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
